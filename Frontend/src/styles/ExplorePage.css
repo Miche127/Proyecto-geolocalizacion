@@ -1,0 +1,103 @@
+/* frontend/src/styles/ExplorePage.css */
+
+.explore-container {
+    display: flex;
+    height: calc(100vh - 60px); /* Ocupa toda la altura menos la navbar */
+    width: 100%;
+}
+
+.map-section {
+    flex: 1; /* Ocupa la mitad del espacio o más */
+    min-width: 50%;
+    height: 100%;
+    position: relative;
+}
+
+.videos-section {
+    flex-basis: 400px; /* Ancho fijo para la columna de videos */
+    min-width: 350px;
+    height: 100%;
+    overflow-y: auto; /* Permite scroll si hay muchos videos */
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-left: 1px solid #dee2e6;
+    box-sizing: border-box;
+}
+
+.videos-section .section-title {
+    text-align: left;
+    margin-top: 0;
+    border-bottom: none;
+    font-size: 1.5em;
+}
+
+.videos-section .location-highlight {
+    font-size: 1.2em;
+}
+
+.videos-list {
+    margin-top: 20px;
+}
+
+.video-item {
+    margin-bottom: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    transition: box-shadow 0.2s ease;
+}
+
+.video-item:hover {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
+.video-item a {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.video-thumbnail-small {
+    width: 120px;
+    height: 67px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0; /* Evita que la imagen se encoja */
+}
+
+.video-info {
+    margin-left: 15px;
+    overflow: hidden; /* Evita que el texto se desborde */
+}
+
+.video-title-small {
+    font-size: 0.95em;
+    font-weight: 600;
+    margin: 0 0 5px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Añade "..." si el título es muy largo */
+}
+
+.video-channel-small {
+    font-size: 0.85em;
+    color: #6c757d;
+    margin: 0;
+}
+
+/* Estilos para el contenedor del mapa de Leaflet */
+.leaflet-container {
+    height: 100%;
+    width: 100%;
+}
+
+.age-badge {
+  background: red;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  margin-left: 5px;
+  border-radius: 3px;
+}

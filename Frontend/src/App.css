@@ -1,0 +1,349 @@
+/* frontend/src/App.css */
+
+/* Variables CSS para consistencia */
+:root {
+    --primary-blue: #112561; /* Tu color de logo */
+    --primary-blue-light: #1f4198; /* Un poco más claro para hover */
+    --primary-blue-dark: #0e1e4f; /* Un poco más oscuro */
+    --text-color-light: #f4f4f4; /* Texto claro para fondos oscuros */
+    --text-color-dark: #333; /* Texto oscuro para fondos claros */
+    --sidebar-bg: #2c3e50; /* Fondo del sidebar */
+    --sidebar-link-hover: #34495e; /* Hover para enlaces del sidebar */
+    --accent-red: #dc3545; /* Color para botones de cerrar sesión */
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --shadow-dark: rgba(0, 0, 0, 0.25);
+}
+
+/* Base body styles */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #f8f9fa; /* Fondo general de la aplicación */
+    color: var(--text-color-dark);
+}
+
+/* Reset de algunos estilos */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+/* --- Layout Container --- */
+.layout-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* --- Navbar Styles --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--primary-blue);
+    padding: 10px 20px;
+    color: var(--text-color-light);
+    box-shadow: 0 2px 10px var(--shadow-dark);
+    z-index: 1000; /* Asegura que la navbar esté siempre arriba */
+}
+
+.navbar-left, .navbar-right, .user-info, .auth-links {
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-toggle-btn {
+    color: var(--text-color-light);
+    font-size: 1.5em;
+    margin-right: 15px;
+    padding: 5px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar-toggle-btn:hover {
+    background-color: var(--primary-blue-light);
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--text-color-light);
+}
+
+.navbar-logo {
+    height: 40px; /* Tamaño de tu logo en la navbar */
+    margin-right: 10px;
+}
+
+.user-info {
+    font-size: 1.1em;
+}
+
+.user-icon {
+    font-size: 1.6em;
+    margin-right: 10px;
+    color: var(--text-color-light);
+}
+
+.welcome-text {
+    margin-right: 20px;
+}
+
+.navbar-btn {
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    color: var(--text-color-light);
+}
+
+.navbar-btn svg {
+    margin-right: 8px;
+}
+
+.navbar-btn.logout-btn {
+    background-color: var(--accent-red);
+}
+
+.navbar-btn.logout-btn:hover {
+    background-color: darken(var(--accent-red), 10%); /* Oscurecer un poco */
+}
+
+.navbar-btn.login-btn, .navbar-btn.register-btn {
+    background-color: var(--primary-blue-light);
+    margin-left: 10px;
+}
+
+.navbar-btn.login-btn:hover, .navbar-btn.register-btn:hover {
+    background-color: var(--primary-blue-dark);
+}
+
+/* Ocultar texto del botón en pantallas pequeñas */
+@media (max-width: 768px) {
+    .navbar-btn .btn-text {
+        display: none;
+    }
+    .user-info .welcome-text {
+        display: none;
+    }
+    .user-info .user-icon {
+        margin-right: 0;
+    }
+    .navbar-brand span {
+        display: none;
+    }
+    .navbar-logo {
+        margin-right: 0;
+    }
+    .sidebar-toggle-btn {
+        margin-right: 0;
+    }
+}
+
+
+/* --- Sidebar Styles --- */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Oculto por defecto */
+    width: 250px;
+    height: 100vh;
+    background-color: var(--primary-blue);
+    color: var(--text-color-light);
+    padding-top: 60px; /* Para que no se superponga con la navbar */
+    box-shadow: 2px 0 10px var(--shadow-dark);
+    transition: left 0.3s ease-in-out;
+    z-index: 999; /* Justo debajo de la navbar */
+}
+
+.sidebar.open {
+    left: 0; /* Visible */
+}
+
+.sidebar-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: var(--text-color-light);
+    font-size: 1.5em;
+    padding: 5px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar-close-btn:hover {
+    background-color: var(--sidebar-link-hover);
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    margin-bottom: 5px;
+}
+
+.sidebar-menu li a {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    color: var(--text-color-light);
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar-menu li a svg {
+    margin-right: 15px;
+    font-size: 1.3em;
+}
+
+.sidebar-menu li a:hover {
+    background-color: var(--sidebar-link-hover);
+}
+
+.sidebar-separator {
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 15px 20px;
+}
+
+/* --- Main Content Styles --- */
+.main-content {
+    flex-grow: 1; /* Ocupa el espacio restante verticalmente */
+    padding: 20px;
+    transition: margin-left 0.3s ease-in-out;
+    margin-left: 0; /* Por defecto, no desplazado */
+}
+
+/* Si el sidebar está abierto, empuja el contenido principal */
+.main-content.shifted {
+    margin-left: 250px; /* Ancho del sidebar */
+}
+
+/* Ajustes para pantallas pequeñas cuando el sidebar está abierto, para que el contenido no se desplace */
+@media (max-width: 768px) {
+    .main-content.shifted {
+        margin-left: 0; /* En móviles, el sidebar se superpone, no empuja el contenido */
+    }
+}
+
+
+/* --- Page Content Wrapper --- */
+.page-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px var(--shadow-light);
+    min-height: calc(100vh - 100px); /* Un ejemplo, ajusta según el tamaño de tu navbar y footer */
+}
+
+/* --- Loading Screen --- */
+.loading-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-size: 1.5em;
+    color: var(--primary-blue);
+    background-color: var(--background-color);
+}
+/* --- Auth Page Styles --- */
+/* frontend/src/App.css */
+
+/* ... tus estilos existentes de navbar y otros ... */
+
+/* Estilos para el contenedor del dropdown del usuario */
+.user-dropdown-container {
+    position: relative; /* Necesario para posicionar el dropdown-menu */
+    cursor: pointer;
+    margin-left: 20px; /* Espacio a la derecha */
+}
+
+/* El área que se puede hacer clic (icono + nombre) */
+.user-info-clickable {
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.user-info-clickable:hover {
+    background-color: var(--primary-blue-light); /* Resaltar al pasar el ratón */
+}
+
+.user-info-clickable .user-icon {
+    font-size: 1.6em;
+    margin-right: 10px;
+}
+
+.user-info-clickable .welcome-text {
+    font-size: 1.1em;
+    white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+}
+
+/* Estilos para el menú desplegable (dropdown) */
+.dropdown-menu {
+    position: absolute;
+    top: 100%; /* Justo debajo del elemento clickable */
+    right: 0; /* Alineado a la derecha del contenedor */
+    background-color: white; /* Fondo blanco */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Sombra suave */
+    min-width: 180px; /* Ancho mínimo para las opciones */
+    padding: 10px 0;
+    z-index: 1001; /* Asegura que esté por encima de otros elementos */
+    list-style: none; /* Quita viñetas si usas <ul> */
+    margin-top: 5px; /* Pequeño espacio entre el nombre y el dropdown */
+}
+
+.dropdown-menu button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 15px;
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 1em;
+    color: var(--text-color-dark); /* Color de texto oscuro */
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-menu button:hover {
+    background-color: #f0f0f0; /* Fondo gris claro al pasar el ratón */
+    color: var(--primary-blue); /* Color de texto del botón al pasar el ratón */
+}
+
+.dropdown-menu button svg {
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+/* Media query para pantallas pequeñas (opcional, si quieres ocultar el texto en móviles) */
+@media (max-width: 768px) {
+    .user-info-clickable .welcome-text {
+        display: none; /* Oculta el texto "Hola, [nombre]" en pantallas pequeñas */
+    }
+    .user-info-clickable {
+        padding: 8px 10px; /* Ajusta el padding si solo se ve el ícono */
+    }
+}

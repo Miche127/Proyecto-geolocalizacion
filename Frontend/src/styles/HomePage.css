@@ -1,0 +1,169 @@
+/* frontend/src/styles/HomePage.css */
+
+.homepage-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.welcome-message {
+    font-size: 2em;
+    color: var(--primary-blue);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.loading-message, .error-message {
+    text-align: center;
+    font-size: 1.1em;
+    margin-top: 30px;
+    color: var(--text-secondary, #6c757d); /* Añadido fallback */
+}
+
+.error-message {
+    color: var(--accent-red, #dc3545); /* Añadido fallback */
+}
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    justify-content: center;
+}
+
+.video-card {
+    background-color: var(--secondary-bg, #ffffff); /* Añadido fallback */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none;
+}
+
+.video-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.video-card a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.video-thumbnail {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+}
+
+.video-title {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--text-color-dark, #333); /* Añadido fallback */
+    margin: 10px 15px 5px 15px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.video-channel {
+    font-size: 0.9em;
+    color: var(--text-color-light, #888); /* Añadido fallback */
+    margin: 0 15px 10px 15px;
+}
+
+/* --- NUEVOS ESTILOS PARA LA BARRA DE BÚSQUEDA Y TÍTULO --- */
+
+.search-bar-container {
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.search-form {
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color, #dfe1e5);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.search-form:hover,
+.search-form:focus-within {
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    border-color: var(--primary-color-hover, #1f4198);
+}
+
+.search-input {
+    flex-grow: 1;
+    border: none;
+    padding: 15px 25px;
+    font-size: 1.1em;
+    outline: none;
+    background-color: #fff;
+    color: var(--text-color-dark, #333);
+}
+
+.search-button {
+    border: none;
+    background-color: var(--primary-color, #112561);
+    padding: 0 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.search-button:hover {
+    background-color: var(--primary-color-hover, #1f4198);
+}
+
+.search-button svg {
+    font-size: 1.3em;
+    color: white;
+}
+
+/* Estilos para el título de la sección */
+.section-title {
+    font-size: 1.6em;
+    color: var(--text-color-dark, #343a40);
+    margin-bottom: 30px;
+    text-align: left; /* Alineado a la izquierda para un look más de dashboard */
+    border-bottom: none; /* Quitamos la línea inferior anterior */
+    padding-bottom: 0;
+}
+
+.location-highlight {
+    font-weight: 700;
+    color: var(--primary-color, #112561);
+}
+
+/* Mensaje por si no se encuentran videos */
+.no-videos-message {
+    text-align: center;
+    font-size: 1.1em;
+    color: #6c757d;
+    padding: 40px 0;
+}
+.location-title-icon {
+    margin-left: 8px; /* Espacio a la izquierda del ícono */
+    margin-right: 4px; /* Espacio a la derecha, antes de los dos puntos */
+    color: var(--text-secondary, #6c757d); /* Un color sutil para el ícono */
+    font-size: 0.9em; /* Ligeramente más pequeño que el texto del título */
+    vertical-align: middle; /* Ayuda a alinear verticalmente con el texto */
+}
+
+.age-badge {
+  background: red;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  margin-left: 5px;
+  border-radius: 3px;
+}
