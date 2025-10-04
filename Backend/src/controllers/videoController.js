@@ -26,7 +26,7 @@ exports.uploadVideo = async (req, res) => {
             thumbnailUrl: thumbnailUrl || 'default_thumbnail.jpg', // Un thumbnail por defecto
             uploader: uploaderId,
             country // Usamos el país que el usuario indicó o que obtuvimos del frontend
-            // Si usas GeoJSON, también necesitarías location: { type: 'Point', coordinates: [long, lat] }
+            
         });
 
         const createdVideo = await video.save();
@@ -53,5 +53,3 @@ exports.getVideoById = async (req, res) => {
         res.status(500).json({ message: 'Error del servidor al obtener video.' });
     }
 };
-
-// (Más adelante, aquí irán los controladores para 'home videos' y 'search videos')

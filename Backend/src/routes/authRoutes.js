@@ -1,8 +1,8 @@
 // backend/routes/authRoutes.js
 const express = require('express');
 const { registerUser, loginUser,googleLogin } = require('../controllers/authController');
-const { protect } = require('../middleware/authMiddleware'); // <--- Importa tu middleware correctamente
-const User = require('../models/user'); // <--- Asegúrate de que la ruta sea correcta para tu modelo de usuario
+const { protect } = require('../middleware/authMiddleware'); 
+const User = require('../models/user'); 
 
 const router = express.Router();
 
@@ -16,13 +16,13 @@ router.post('/register', registerUser);
 // @access  Public
 router.post('/login', loginUser);
 
-router.post('/google', googleLogin); // 👈 Añade la nueva ruta
+router.post('/google', googleLogin); 
 
 // @route   GET api/auth/me
 // @desc    Obtener datos del usuario logueado (incluye username)
 // @access  Private
 
-router.get('/me', protect, async (req, res) => { // <--- Usa tu middleware 'protect' aquí
+router.get('/me', protect, async (req, res) => { 
     try {
         // req.user ya está adjunto por tu middleware 'protect'
         // Contiene el objeto de usuario (sin la contraseña)

@@ -16,7 +16,7 @@ async function reverseGeocode(latitude, longitude) {
                 addressdetails: 1 // Incluir detalles de la dirección
             },
             headers: {
-                // Es buena práctica incluir un User-Agent
+                
                 'User-Agent': 'GeoTubeApp/1.0 (tu-email@example.com)' 
             }
         });

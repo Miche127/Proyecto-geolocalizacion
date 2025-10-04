@@ -1,7 +1,6 @@
 // backend/src/routes/locationRoutes.js
 const express = require('express');
-const { reverseGeocode } = require('../utils/geocode'); // Asegúrate de la ruta correcta
-
+const { reverseGeocode } = require('../utils/geocode'); 
 const router = express.Router();
 
 // @route   GET /api/location/geocode

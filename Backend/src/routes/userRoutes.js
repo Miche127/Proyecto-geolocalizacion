@@ -6,7 +6,7 @@ const { addVideoToHistory, getHistory } = require('../controllers/userController
 const router = express.Router();
 
 const { verifyToken } = require('../middleware/authMiddleware');
-const user = require('../models/user'); // Ajusta a tu modelo real
+const user = require('../models/user'); 
 
 router.post('/history', protect, addVideoToHistory);
 router.get('/history', protect, getHistory);

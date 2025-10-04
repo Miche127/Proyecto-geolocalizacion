@@ -22,7 +22,6 @@ async function searchYoutubeVideos(searchTerm, location, maxResults = 10) {
                 part: 'snippet',
                 type: 'video',
                 maxResults: maxResults,
-                // --- TRUCO EXTRA ---
                 // Le decimos a YouTube que priorice resultados relevantes para México (MX)
                 regionCode: 'MX'
             }

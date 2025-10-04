@@ -1,8 +1,13 @@
 // backend/controllers/authController.js
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
+<<<<<<< HEAD
 const { OAuth2Client } = require('google-auth-library');
+=======
+const { OAuth2Client } = require('google-auth-library'); // 
+>>>>>>> f35a1271 (validacion de contraseña)
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
 // Función auxiliar para generar JWT
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -10,6 +15,7 @@ const generateToken = (id) => {
     });
 };
 
+/*login con google*/
 exports.googleLogin = async (req, res) => {
     const { token } = req.body;
     try {
@@ -54,36 +60,46 @@ exports.googleLogin = async (req, res) => {
 // @route   POST /api/auth/register
 // @access  Public
 exports.registerUser = async (req, res) => {
-    const { username, email, password, country } = req.body;
+  const { username, email, password, country } = req.body;
 
-    try {
-        const userExists = await User.findOne({ email });
-        if (userExists) {
-            return res.status(400).json({ message: 'El usuario ya existe con este email.' });
-        }
-
-        const user = await User.create({
-            username,
-            email,
-            password,
-            country
-        });
-
-        if (user) {
-            res.status(201).json({
-                _id: user._id,
-                username: user.username,
-                email: user.email,
-                country: user.country,
-                token: generateToken(user._id),
-            });
-        } else {
-            res.status(400).json({ message: 'Datos de usuario inválidos.' });
-        }
-    } catch (error) {
-        console.error('Error al registrar usuario:', error);
-        res.status(500).json({ message: 'Error del servidor al registrar.' });
+  try {
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+      return res.status(400).json({ message: 'El usuario ya existe con este email.' });
     }
+
+    // ✅ VALIDACIÓN DE CONTRASEÑA
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{8,}$/;
+    if (!passwordRegex.test(password)) {
+      return res.status(400).json({
+        message:
+          'La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un símbolo.',
+      });
+    }
+
+    // Crear usuario
+    const user = await User.create({
+      username,
+      email,
+      password,
+      country,
+    });
+
+    if (user) {
+      res.status(201).json({
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+        country: user.country,
+        token: generateToken(user._id),
+      });
+    } else {
+      res.status(400).json({ message: 'Datos de usuario inválidos.' });
+    }
+  } catch (error) {
+    console.error('Error al registrar usuario:', error);
+    res.status(500).json({ message: 'Error del servidor al registrar.' });
+  }
 };
 
 // @desc    Autenticar un usuario y obtener token
