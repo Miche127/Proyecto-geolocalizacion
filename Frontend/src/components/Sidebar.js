@@ -1,7 +1,7 @@
 // frontend/src/components/Sidebar.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-// Importa los nuevos iconos: FaCompass para Exploración y FaFolder para Biblioteca
+
 import { FaHome, FaVideo, FaTimes, FaSignOutAlt, FaCompass, FaFolder } from 'react-icons/fa';
 
 const Sidebar = ({ isOpen, onClose, onLogout }) => {

@@ -51,7 +51,7 @@ const AuthPage = ({ setAuthToken }) => {
         setCountry('');
     };
 
-    // 👇 Función para manejar el éxito del login con Google
+    // Función para manejar el éxito del login con Google
     const handleGoogleSuccess = async (credentialResponse) => {
         const idToken = credentialResponse.credential;
         try {
@@ -70,7 +70,7 @@ const AuthPage = ({ setAuthToken }) => {
         }
     };
 
-    // 👇 Función para manejar el error del login con Google
+    // Función para manejar el error del login con Google
     const handleGoogleFailure = () => {
         console.error('El inicio de sesión con Google ha fallado.');
         setError('El inicio de sesión con Google ha fallado. Por favor, intenta de nuevo.');
@@ -87,8 +87,8 @@ const AuthPage = ({ setAuthToken }) => {
                 onSubmit={handleSubmit}
                 message={message} error={error}
                 onToggleAuthMode={handleToggleAuthMode}
-                onGoogleSuccess={handleGoogleSuccess} // 👈 Pasa la función de éxito
-                onGoogleFailure={handleGoogleFailure} // 👈 Pasa la función de error
+                onGoogleSuccess={handleGoogleSuccess} 
+                onGoogleFailure={handleGoogleFailure} 
             />
         </div>
     );

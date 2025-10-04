@@ -1,6 +1,6 @@
 // frontend/src/components/LocationPermissionPanel.js
 import React from 'react';
-import '../styles/LocationPermissionPanel.css'; // (opcional) estilos
+import '../styles/LocationPermissionPanel.css'; 
 
 const LocationPermissionPanel = ({ isOpen, onAccept, onDeny }) => {
   if (!isOpen) return null;

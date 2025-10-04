@@ -234,3 +234,46 @@ body {
 *, *::before, *::after {
   box-sizing: border-box;
 }
+
+/*validacion de contraseña*/
+
+.password-group {
+  position: relative;
+}
+
+.toggle-password-btn {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  background: none;
+  border: none;
+  color: #555;
+  cursor: pointer;
+}
+
+.password-rules {
+  background: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.password-rules p {
+  margin: 2px 0;
+}
+
+.password-rules .valid {
+  color: green;
+}
+
+.password-rules .invalid {
+  color: red;
+}
+
+.auth-submit-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
