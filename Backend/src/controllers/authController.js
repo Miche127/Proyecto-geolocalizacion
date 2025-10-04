@@ -1,7 +1,7 @@
 // backend/controllers/authController.js
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
-const { OAuth2Client } = require('google-auth-library'); // 👈 Importa la librería
+const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 // Función auxiliar para generar JWT
 const generateToken = (id) => {
