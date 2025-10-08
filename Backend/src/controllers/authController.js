@@ -1,11 +1,7 @@
 // backend/controllers/authController.js
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
-<<<<<<< HEAD
-const { OAuth2Client } = require('google-auth-library');
-=======
 const { OAuth2Client } = require('google-auth-library'); // 
->>>>>>> f35a1271 (validacion de contraseña)
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 // Función auxiliar para generar JWT
@@ -68,7 +64,7 @@ exports.registerUser = async (req, res) => {
       return res.status(400).json({ message: 'El usuario ya existe con este email.' });
     }
 
-    // ✅ VALIDACIÓN DE CONTRASEÑA
+    // VALIDACIÓN DE CONTRASEÑA
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{8,}$/;
     if (!passwordRegex.test(password)) {
       return res.status(400).json({
