@@ -7,6 +7,8 @@ import { addVideoToUserHistory } from '../utils/history';
 import AgePrompt from '../components/AgePrompt';
 import LocationPermissionPanel from '../components/LocationPermissionPanel';
 
+import VideoPlayer from "../components/VideoPlayer";
+
 const API_URL = 'http://localhost:5000/api';
 
 const HomePage = ({ user }) => {
@@ -18,6 +20,8 @@ const HomePage = ({ user }) => {
   const [agePromptOpen, setAgePromptOpen] = useState(false);
   const [pendingVideoToOpen, setPendingVideoToOpen] = useState(null);
   const [showPermissionPanel, setShowPermissionPanel] = useState(true);
+
+  const [selectedVideoId, setSelectedVideoId] = useState(null); 
 
   // Si acepta ubicación
   const handlePermissionAccept = async ({ latitude, longitude }) => {
@@ -65,14 +69,17 @@ const HomePage = ({ user }) => {
       return;
     }
     addVideoToUserHistory(video);
-    window.open(`https://www.youtube.com/watch?v=${video.id}`, '_blank', 'noopener noreferrer');
+    setSelectedVideoId(video.id); // Abre el reproductor interno
+    //window.open(`https://www.youtube.com/watch?v=${video.id}`, '_blank', 'noopener noreferrer');
+
   };
 
   const handleAgeConfirm = (isAdult) => {
     setAgePromptOpen(false);
     if (isAdult && pendingVideoToOpen) {
       addVideoToUserHistory(pendingVideoToOpen);
-      window.open(`https://www.youtube.com/watch?v=${pendingVideoToOpen.id}`, '_blank', 'noopener noreferrer');
+      setSelectedVideoId(pendingVideoToOpen.id); // Abre video dentro de GeoTube
+      //window.open(`https://www.youtube.com/watch?v=${pendingVideoToOpen.id}`, '_blank', 'noopener noreferrer');
     } else {
       alert('No puedes ver este video si no eres mayor de edad.');
     }
@@ -82,6 +89,10 @@ const HomePage = ({ user }) => {
   const handleAgeCancel = () => {
     setAgePromptOpen(false);
     setPendingVideoToOpen(null);
+  };
+
+  const handleClosePlayer = () => {
+    setSelectedVideoId(null);
   };
 
   // Buscar manualmente
@@ -120,6 +131,8 @@ const HomePage = ({ user }) => {
         onCancel={handleAgeCancel}
         videoTitle={pendingVideoToOpen ? pendingVideoToOpen.title : ''}
       />
+
+      <VideoPlayer videoId={selectedVideoId} onClose={handleClosePlayer} />
 
       <div className="search-bar-container">
         <form onSubmit={handleSearchSubmit} className="search-form">

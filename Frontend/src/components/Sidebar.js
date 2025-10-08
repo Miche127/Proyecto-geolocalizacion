@@ -17,6 +17,7 @@ const Sidebar = ({ isOpen, onClose, onLogout }) => {
                         <span>Inicio</span>
                     </Link>
                 </li>
+                
                 <li>
                     {/* Icono FaCompass para Exploración y una ruta /explore */}
                     <Link to="/explore" onClick={onClose}>

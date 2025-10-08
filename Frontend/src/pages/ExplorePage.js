@@ -8,6 +8,8 @@ import { addVideoToUserHistory } from '../utils/history';
 import LocationPermissionPanel from '../components/LocationPermissionPanel';
 import AgePrompt from '../components/AgePrompt';
 
+import VideoPlayer from "../components/VideoPlayer";
+
 const API_URL = 'http://localhost:5000/api';
 
 const ExplorePage = () => {
@@ -20,6 +22,8 @@ const ExplorePage = () => {
   const [preferredKeyword, setPreferredKeyword] = useState('');
   const [agePromptOpen, setAgePromptOpen] = useState(false);
   const [pendingVideoToOpen, setPendingVideoToOpen] = useState(null);
+
+  const [selectedVideoId, setSelectedVideoId] = useState(null);
 
   // derivePreferredFromHistory: obtiene historial y calcula palabra clave más frecuente simple
   const derivePreferredFromHistory = async () => {
@@ -135,14 +139,16 @@ const ExplorePage = () => {
       return;
     }
     addVideoToUserHistory(video);
-    window.open(`https://www.youtube.com/watch?v=${video.id}`, '_blank', 'noopener noreferrer');
+    setSelectedVideoId(video.id); // Abre dentro del sitio
+    //window.open(`https://www.youtube.com/watch?v=${video.id}`, '_blank', 'noopener noreferrer');
   };
 
   const handleAgeConfirm = (isAdult) => {
     setAgePromptOpen(false);
     if (isAdult && pendingVideoToOpen) {
       addVideoToUserHistory(pendingVideoToOpen);
-      window.open(`https://www.youtube.com/watch?v=${pendingVideoToOpen.id}`, '_blank', 'noopener noreferrer');
+      setSelectedVideoId(pendingVideoToOpen.id);
+      //window.open(`https://www.youtube.com/watch?v=${pendingVideoToOpen.id}`, '_blank', 'noopener noreferrer');
     } else {
       alert('No puedes ver este video si no eres mayor de edad.');
     }
@@ -159,6 +165,10 @@ const ExplorePage = () => {
     setMapCenter(newCenter);
   };
 
+  const handleClosePlayer = () => {
+    setSelectedVideoId(null);
+  };
+
   return (
     <div className="explore-container">
       <LocationPermissionPanel
@@ -173,6 +183,8 @@ const ExplorePage = () => {
         onCancel={handleAgeCancel}
         videoTitle={pendingVideoToOpen ? pendingVideoToOpen.title : ''}
       />
+
+      <VideoPlayer videoId={selectedVideoId} onClose={handleClosePlayer} />
 
       <div className="map-section" style={{ height: '60vh' }}>
         <MapComponent center={mapCenter} onMapMove={handleMapMove} />
