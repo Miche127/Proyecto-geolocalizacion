@@ -1,103 +1,164 @@
 /* frontend/src/styles/ExplorePage.css */
 
+/* ==== SECCIÓN GENERAL ==== */
 .explore-container {
-    display: flex;
-    height: calc(100vh - 60px); /* Ocupa toda la altura menos la navbar */
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1.5rem;
 }
 
+/* ==== MAPA ==== */
 .map-section {
-    flex: 1; /* Ocupa la mitad del espacio o más */
-    min-width: 50%;
-    height: 100%;
-    position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
+/* ==== VIDEOS ==== */
 .videos-section {
-    flex-basis: 400px; /* Ancho fijo para la columna de videos */
-    min-width: 350px;
-    height: 100%;
-    overflow-y: auto; /* Permite scroll si hay muchos videos */
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-left: 1px solid #dee2e6;
-    box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.videos-section .section-title {
-    text-align: left;
-    margin-top: 0;
-    border-bottom: none;
-    font-size: 1.5em;
+.videos-section h2 {
+  margin-bottom: 1rem;
+  color: #112561;
+  font-weight: 700;
+  font-size: 1.4rem;
 }
 
-.videos-section .location-highlight {
-    font-size: 1.2em;
+.location-highlight {
+  color: #0077ff;
 }
 
+/* ==== LISTA DE VIDEOS ==== */
 .videos-list {
-    margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
 }
 
+/* ==== TARJETAS ==== */
 .video-item {
-    margin-bottom: 15px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
-    transition: box-shadow 0.2s ease;
+  background-color: #fafafa;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .video-item:hover {
-    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.video-item a {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    text-decoration: none;
-    color: inherit;
+.video-link {
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  padding: 0;
 }
 
 .video-thumbnail-small {
-    width: 120px;
-    height: 67px;
-    object-fit: cover;
-    border-radius: 4px;
-    flex-shrink: 0; /* Evita que la imagen se encoja */
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
 }
 
 .video-info {
-    margin-left: 15px;
-    overflow: hidden; /* Evita que el texto se desborde */
+  padding: 0.5rem 0.75rem;
 }
 
-.video-title-small {
-    font-size: 0.95em;
-    font-weight: 600;
-    margin: 0 0 5px 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis; /* Añade "..." si el título es muy largo */
+.video-info h4 {
+  font-size: 0.95rem;
+  margin: 0;
+  font-weight: 600;
+  color: #222;
 }
 
-.video-channel-small {
-    font-size: 0.85em;
-    color: #6c757d;
-    margin: 0;
+.video-channel {
+  font-size: 0.85rem;
+  color: #666;
 }
 
-/* Estilos para el contenedor del mapa de Leaflet */
-.leaflet-container {
-    height: 100%;
-    width: 100%;
+.age-badge {
+  background-color: #e63946;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.75rem;
+  border-radius: 5px;
+  padding: 0.1rem 0.4rem;
+  margin-left: 0.3rem;
+}
+
+
+
+
+
+.videos-section {
+  padding: 1rem;
+  background: #fafafa;
+  border-top: 2px solid #ddd;
+}
+
+.videos-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.video-item {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.video-item:hover {
+  transform: scale(1.03);
+}
+
+.video-link {
+  display: flex;
+  flex-direction: column;
+  border: none;
+  background: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.video-thumbnail-small {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.video-info {
+  padding: 0.6rem;
+}
+
+.video-info h4 {
+  font-size: 0.95rem;
+  color: #112561;
+  margin-bottom: 4px;
+}
+
+.video-channel {
+  color: #555;
+  font-size: 0.85rem;
 }
 
 .age-badge {
   background: red;
   color: white;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
+  border-radius: 6px;
   padding: 2px 6px;
-  margin-left: 5px;
-  border-radius: 3px;
+  margin-left: 6px;
 }

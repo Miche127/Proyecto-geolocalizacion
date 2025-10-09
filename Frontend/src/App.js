@@ -7,9 +7,9 @@ import AuthPage from './pages/AuthPage';
 import Layout from './components/Layout'; // Nuevo componente Layout
 import HomePage from './pages/HomePage';
 import MyVideosPage from './pages/MyVideosPage';
-import ExplorePage from './pages/ExplorePage'; // 👈 1. Importa la nueva página
-import LibraryPage from './pages/LibraryPage'; // Hemos movido HomePage a su propio archivo
-import { GoogleOAuthProvider } from '@react-oauth/google'; // 👈 1. Importa el proveedor
+import ExplorePage from './pages/ExplorePage'; 
+import LibraryPage from './pages/LibraryPage'; 
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 // Importa tus páginas futuras aquí:
 
@@ -60,6 +60,7 @@ function AppContent() {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('userLocation'); // Limpiar ubicacion al cerrar sesion
         setAuthToken(null);
         // setUser(null); // Se limpia en el useEffect
         navigate('/auth'); // Redirigir a la página de autenticación al cerrar sesión
@@ -83,8 +84,8 @@ function AppContent() {
                 {authToken ? (
                     <>
                         <Route path="/" element={<HomePage user={user} />} />
-                        <Route path="/explore" element={<ExplorePage />} /> {/* 👈 3. Añade la ruta para Exploración */}
-                        <Route path="/library" element={<LibraryPage />} /> {/* 👈 4. Añade la ruta para Biblioteca */}
+                        <Route path="/explore" element={<ExplorePage />} /> {}
+                        <Route path="/library" element={<LibraryPage />} /> {}
                         <Route path="*" element={<HomePage user={user} />} /> 
                     </>
                 ) : (
@@ -102,8 +103,7 @@ function AppContent() {
 
 // Wrapper para usar useNavigate y otros hooks de react-router-dom
 function App() {
-    const googleClientId = "8303532805-087cjtan1s681791bel1d1f0u70qkgnr.apps.googleusercontent.com"; // 👈 2. Pega tu ID de Cliente aquí
-
+    const googleClientId = "8303532805-087cjtan1s681791bel1d1f0u70qkgnr.apps.googleusercontent.com"; 
     return (
         <GoogleOAuthProvider clientId={googleClientId}>
             <Router>

@@ -13,18 +13,21 @@ const LocationPermissionPanel = ({ isOpen, onAccept, onDeny }) => {
     }
 
     navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        const latitude = pos.coords.latitude;
-        const longitude = pos.coords.longitude;
-        onAccept({ latitude, longitude });
-      },
-      (err) => {
-        console.error('Error al obtener ubicación:', err);
-        onDeny();
-      },
-      { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-    );
-  };
+    (pos) => {
+      const latitude = pos.coords.latitude;
+      const longitude = pos.coords.longitude;
+      
+      localStorage.setItem('userLocation', JSON.stringify({ latitude, longitude }));
+
+      onAccept({ latitude, longitude });
+    },
+    (err) => {
+      console.error('Error al obtener ubicación:', err);
+      onDeny();
+    },
+    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+  );
+};
 
   return (
     <div className="lp-overlay">

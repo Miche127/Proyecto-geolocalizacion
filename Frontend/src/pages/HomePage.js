@@ -1,5 +1,5 @@
 // frontend/src/pages/HomePage.js
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 import axios from 'axios';
 import { FaSearch, FaMapMarkedAlt } from 'react-icons/fa';
 import '../styles/HomePage.css';
@@ -22,6 +22,19 @@ const HomePage = ({ user }) => {
   const [showPermissionPanel, setShowPermissionPanel] = useState(true);
 
   const [selectedVideoId, setSelectedVideoId] = useState(null); 
+
+
+  useEffect(() => {
+    const savedLocation = localStorage.getItem('userLocation');
+    if (savedLocation) {
+      const { latitude, longitude } = JSON.parse(savedLocation);
+      setShowPermissionPanel(false);
+      fetchVideosByLocation(latitude, longitude);
+    } else {
+      setShowPermissionPanel(true);
+    }
+  }, []);
+
 
   // Si acepta ubicación
   const handlePermissionAccept = async ({ latitude, longitude }) => {
@@ -88,7 +101,7 @@ const HomePage = ({ user }) => {
 
   const handleAgeCancel = () => {
     setAgePromptOpen(false);
-    setPendingVideoToOpen(null);
+    //setPendingVideoToOpen(null);
   };
 
   const handleClosePlayer = () => {
