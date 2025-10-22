@@ -38,7 +38,7 @@ exports.googleLogin = async (req, res) => {
         // Si el usuario ya existe, generamos un token para él
         const payload = { id: user._id };
         const jwtToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '30d' });
-
+        
         res.json({
             _id: user._id,
             username: user.username,

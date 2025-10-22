@@ -7,13 +7,12 @@ const router = express.Router();
 // @desc    Obtener nombre de ubicación a partir de coordenadas
 // @access  Public (o Private si quieres protegerla con el middleware 'protect')
 router.get('/geocode', async (req, res) => {
-    const { lat, lon } = req.query; // Esperamos lat y lon como parámetros de consulta
+    const { lat, lon } = req.query; 
 
     if (!lat || !lon) {
         return res.status(400).json({ message: 'Se requieren latitud y longitud.' });
     }
 
-    // Convertir y validar que sean números reales
     const latNum = parseFloat(lat);
     const lonNum = parseFloat(lon);
 
@@ -21,19 +20,28 @@ router.get('/geocode', async (req, res) => {
         return res.status(400).json({ message: 'Latitud o longitud inválida.' });
     }
 
-    // Validar que estén dentro del rango de coordenadas reales
     if (latNum < -90 || latNum > 90 || lonNum < -180 || lonNum > 180) {
         return res.status(400).json({ message: 'Coordenadas fuera de rango válido.' });
     }
 
     try {
-        const locationName = await reverseGeocode(latNum, lonNum);
+        // --- ¡CAMBIO AQUÍ! ---
+        // Antes: const locationName = await reverseGeocode(latNum, lonNum);
+        // reverseGeocode ahora devuelve un objeto, así que lo desestructuramos:
+        const { locationName, countryCode } = await reverseGeocode(latNum, lonNum);
 
         if (!locationName) {
             return res.status(404).json({ message: 'No se pudo determinar la ubicación.' });
         }
+        
+        // Antes: res.json({ locationName });
+        // Ahora, tu frontend (el que revertimos) espera un objeto { locationName: "..." }
+        // Así que nos aseguramos de enviar solo eso:
+        res.json({ locationName: locationName });
 
-        res.json({ locationName });
+        // NOTA: countryCode se obtiene pero no se envía al frontend
+        // porque tu frontend revertido ya no lo espera. Esto es correcto.
+
     } catch (error) {
         console.error('Error en el endpoint /geocode:', error.message);
         res.status(500).json({ message: 'Error del servidor al obtener el nombre de la ubicación.' });
