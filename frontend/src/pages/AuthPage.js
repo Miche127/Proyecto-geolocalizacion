@@ -4,6 +4,7 @@ import axios from 'axios';
 import AuthForm from '../components/AuthForm';
 import { useNavigate } from 'react-router-dom';
 import '../styles/AuthPage.css';
+import API_BASE_URL from '../utils/api';
 
 const AuthPage = ({ setAuthToken }) => {
     const navigate = useNavigate();
@@ -15,7 +16,7 @@ const AuthPage = ({ setAuthToken }) => {
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
 
-    const API_URL = 'http://localhost:5000/api/auth';
+    const API_URL = `${API_BASE_URL}/api/auth`;
 
     const handleSubmit = async (e) => {
         e.preventDefault();

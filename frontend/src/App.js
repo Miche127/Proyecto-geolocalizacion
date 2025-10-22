@@ -10,13 +10,12 @@ import MyVideosPage from './pages/MyVideosPage';
 import ExplorePage from './pages/ExplorePage'; 
 import LibraryPage from './pages/LibraryPage'; 
 import { GoogleOAuthProvider } from '@react-oauth/google';
-
+import API_BASE_URL from './utils/api';
 // Importa tus páginas futuras aquí:
 
 
 import './App.css'; // Tus estilos globales
 
-const API_URL = 'http://localhost:5000/api/auth'; // Asegúrate de que esta URL sea correcta
 
 function AppContent() {
     const [authToken, setAuthToken] = useState(localStorage.getItem('token'));
@@ -29,7 +28,7 @@ function AppContent() {
         try {
             setLoadingUser(true);
             // --- CAMBIOS AQUÍ ---
-            const res = await axios.get(`${API_URL}/me`, {
+            const res = await axios.get(`${API_BASE_URL}/api/auth/me`, {
                 headers: {
                     // El header debe ser 'Authorization' y el valor 'Bearer <token>'
                     'Authorization': `Bearer ${token}` 

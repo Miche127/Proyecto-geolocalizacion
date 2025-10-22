@@ -6,10 +6,11 @@ import '../styles/HomePage.css';
 import { addVideoToUserHistory } from '../utils/history';
 import AgePrompt from '../components/AgePrompt';
 import LocationPermissionPanel from '../components/LocationPermissionPanel';
+import API_BASE_URL from '../utils/api';
 
 import VideoPlayer from "../components/VideoPlayer";
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = `${API_BASE_URL}/api`;
 
 const HomePage = ({ user }) => {
   const [videos, setVideos] = useState([]);
