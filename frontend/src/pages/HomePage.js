@@ -83,8 +83,6 @@ const HomePage = ({ user }) => {
     }
     addVideoToUserHistory(video);
     setSelectedVideoId(video.id); // Abre el reproductor interno
-    //window.open(`https://www.youtube.com/watch?v=${video.id}`, '_blank', 'noopener noreferrer');
-
   };
 
   const handleAgeConfirm = (isAdult) => {
@@ -92,7 +90,6 @@ const HomePage = ({ user }) => {
     if (isAdult && pendingVideoToOpen) {
       addVideoToUserHistory(pendingVideoToOpen);
       setSelectedVideoId(pendingVideoToOpen.id); // Abre video dentro de GeoTube
-      //window.open(`https://www.youtube.com/watch?v=${pendingVideoToOpen.id}`, '_blank', 'noopener noreferrer');
     } else {
       alert('No puedes ver este video si no eres mayor de edad.');
     }
@@ -101,7 +98,6 @@ const HomePage = ({ user }) => {
 
   const handleAgeCancel = () => {
     setAgePromptOpen(false);
-    //setPendingVideoToOpen(null);
   };
 
   const handleClosePlayer = () => {
