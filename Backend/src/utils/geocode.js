@@ -1,51 +1,65 @@
 // backend/src/utils/geocode.js
 const axios = require('axios');
 
-// Nominatim API de OpenStreetMap
-const NOMINATIM_API_URL = 'https://nominatim.openstreetmap.org/reverse';
+// OpenCage Data API
+const OPENCAGE_API_URL = 'https://api.opencagedata.com/geocode/v1/json';
 
-// Función para obtener el nombre de una ubicación a partir de latitud y longitud
 async function reverseGeocode(latitude, longitude) {
     try {
-        const response = await axios.get(NOMINATIM_API_URL, {
+        // Obtener la clave API de las variables de entorno de Render
+        const opencageApiKey = process.env.OPENCAGE_API_KEY; 
+
+        // Verificar si la clave API está configurada
+        if (!opencageApiKey) {
+            console.error('Error: OPENCAGE_API_KEY no está definida en las variables de entorno de Render.');
+            return { locationName: 'Mundo (API Key Faltante)', countryCode: 'mx' };
+        }
+
+        // Realizar la petición a la API de OpenCage Data
+        const response = await axios.get(OPENCAGE_API_URL, {
             params: {
-                format: 'json',
-                lat: latitude,
-                lon: longitude,
-                zoom: 10, // Nivel de detalle (10 para ciudad/estado)
-                addressdetails: 1, // Incluir detalles de la dirección
-                // --- ¡CAMBIO AQUÍ! ---
-                // Le pedimos a la API que prefiera los nombres en español
-                'accept-language': 'es'
+                q: `${latitude}+${longitude}`, // Formato de lat/lon para OpenCage
+                key: opencageApiKey,           // Tu clave API
+                language: 'es',                // Preferir resultados en español
+                pretty: 1                      // Formato de respuesta legible
             },
-            headers: {
-                'User-Agent': 'GeoTubeApp/1.0 (tu-email@example.com)' 
-            }
+            timeout: 10000 // Timeout de 10 segundos para la petición
         });
 
         const data = response.data;
         let locationName = 'Mundo';
-        let countryCode = 'MX'; // Código por defecto
+        let countryCode = 'mx';
 
-        if (data && data.address) {
-            const city = data.address.city || data.address.town || data.address.village;
-            const state = data.address.state || data.address.county;
-            const country = data.address.country;
+        // Procesar la respuesta de OpenCage
+        if (data && data.results && data.results.length > 0) {
+            const firstResult = data.results[0].components;
+            const city = firstResult.city || firstResult.town || firstResult.village;
+            const state = firstResult.state || firstResult.county;
+            const country = firstResult.country;
 
             if (city) locationName = city;
             else if (state) locationName = state;
             else if (country) locationName = country;
 
-            if (data.address.country_code) {
-                countryCode = data.address.country_code.toLowerCase();
+            if (firstResult.country_code) {
+                countryCode = firstResult.country_code.toLowerCase();
             }
+        } else {
+            // Si no hay resultados de geocodificación
+            console.warn('OpenCage Data no encontró resultados para las coordenadas:', latitude, longitude);
         }
-        
+
         return { locationName, countryCode };
 
     } catch (error) {
-        console.error('Error al hacer geocodificación inversa:', error.message);
-        return { locationName: 'Mundo', countryCode: 'mx' }; 
+        console.error('Error al hacer geocodificación inversa DETALLADO (OpenCage):');
+        console.error(error);
+        // Imprimir la respuesta de error de la API si está disponible
+        if (error.response) {
+            console.error('Respuesta de error de OpenCage API:', error.response.data);
+            console.error('Estado de error de OpenCage API:', error.response.status);
+        }
+        return { locationName: 'Mundo (Error API)', countryCode: 'mx' };
     }
 }
 
