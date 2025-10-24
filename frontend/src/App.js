@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import WhatsAppButton from './components/WhatsAppButton'; // <<< Importa aquí
 import AuthPage from './pages/AuthPage';
 import Layout from './components/Layout'; // Nuevo componente Layout
 import HomePage from './pages/HomePage';
@@ -96,6 +96,10 @@ function AppContent() {
                     </>
                 )}
             </Routes>
+            <WhatsAppButton
+          phoneNumber="+529511907270" // <<< ¡REEMPLAZA CON TU NÚMERO DE TELÉFONO! (sin +)
+          message="¡Hola! Tengo un comentario o sugerencia sobre GeoTube."
+        />
         </Layout>
     );
 }

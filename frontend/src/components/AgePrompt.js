@@ -7,7 +7,7 @@ const AgePrompt = ({ isOpen, onConfirm, onCancel, videoTitle }) => {
 
   if (!isOpen) return null;
 
-  const years = Array.from(
+    const years = Array.from(
     { length: 2007 - 1900 + 1 },
     (_, i) => 1900 + i
   );
@@ -15,7 +15,7 @@ const AgePrompt = ({ isOpen, onConfirm, onCancel, videoTitle }) => {
   const handleConfirm = () => {
     const year = parseInt(birthYear, 10);
     if (!year || year < 1900 || year > new Date().getFullYear()) {
-      alert('Selecciona un año de nacimiento válido.');
+      alert('Introduce un año de nacimiento válido.');
       return;
     }
     const age = new Date().getFullYear() - year;
@@ -58,5 +58,4 @@ const AgePrompt = ({ isOpen, onConfirm, onCancel, videoTitle }) => {
     </div>
   );
 };
-
 export default AgePrompt;
