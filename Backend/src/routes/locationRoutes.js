@@ -3,9 +3,6 @@ const express = require('express');
 const { reverseGeocode } = require('../utils/geocode');
 const router = express.Router();
 
-// @route   GET /api/location/geocode
-// @desc    Obtener nombre de ubicación a partir de coordenadas
-// @access  Public (o Private si quieres protegerla con el middleware 'protect')
 router.get('/geocode', async (req, res) => {
     const { lat, lon } = req.query; 
 
@@ -25,22 +22,15 @@ router.get('/geocode', async (req, res) => {
     }
 
     try {
-        // --- ¡CAMBIO AQUÍ! ---
-        // Antes: const locationName = await reverseGeocode(latNum, lonNum);
-        // reverseGeocode ahora devuelve un objeto, así que lo desestructuramos:
-        const { locationName, countryCode } = await reverseGeocode(latNum, lonNum);
+        // Ahora reverseGeocode devuelve un string (texto)
+        const locationName = await reverseGeocode(latNum, lonNum);
 
         if (!locationName) {
             return res.status(404).json({ message: 'No se pudo determinar la ubicación.' });
         }
         
-        // Antes: res.json({ locationName });
-        // Ahora, tu frontend (el que revertimos) espera un objeto { locationName: "..." }
-        // Así que nos aseguramos de enviar solo eso:
+        // Y lo enviamos al frontend de la forma que espera
         res.json({ locationName: locationName });
-
-        // NOTA: countryCode se obtiene pero no se envía al frontend
-        // porque tu frontend revertido ya no lo espera. Esto es correcto.
 
     } catch (error) {
         console.error('Error en el endpoint /geocode:', error.message);

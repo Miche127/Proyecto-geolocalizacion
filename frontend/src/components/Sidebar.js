@@ -1,10 +1,28 @@
 // frontend/src/components/Sidebar.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-import { FaHome, FaVideo, FaTimes, FaSignOutAlt, FaCompass, FaFolder } from 'react-icons/fa';
+import { 
+    FaHome, 
+    FaTimes, 
+    FaSignOutAlt, 
+    FaCompass, 
+    FaFolder, 
+    FaComment 
+} from 'react-icons/fa';
 
 const Sidebar = ({ isOpen, onClose, onLogout }) => {
+    
+    // --- 1. DEFINIMOS EL NÚMERO Y EL MENSAJE ---
+    const whatsappNumber = "9511394431";
+    const defaultMessage = "Hola, soy un usuario de su aplicación y la retroalimentación que quisiera dar es la siguiente: ";
+    
+    // --- 2. CODIFICAMOS EL MENSAJE PARA LA URL ---
+    // Esto convierte espacios en %20, 'ó' en %C3%B3, etc.
+    const encodedMessage = encodeURIComponent(defaultMessage);
+    
+    // --- 3. CREAMOS EL ENLACE COMPLETO ---
+    const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
     return (
         <div className={`sidebar ${isOpen ? 'open' : ''}`}>
             <button className="sidebar-close-btn" onClick={onClose}>
@@ -19,26 +37,30 @@ const Sidebar = ({ isOpen, onClose, onLogout }) => {
                 </li>
                 
                 <li>
-                    {/* Icono FaCompass para Exploración y una ruta /explore */}
                     <Link to="/explore" onClick={onClose}>
                         <FaCompass />
                         <span>Exploración</span>
                     </Link>
                 </li>
                 <li>
-                    {/* Icono FaFolder para Biblioteca y una ruta /library */}
                     <Link to="/library" onClick={onClose}>
                         <FaFolder />
                         <span>Historial</span>
                     </Link>
                 </li>
+
+                {/* Esta es la opción que modificamos */}
+                <li>
+                    <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                        <FaComment />
+                        <span>Comentarios</span>
+                    </a>
+                </li>
                 
-                <li className="sidebar-separator"></li> {/* Separador visual */}
+                <li className="sidebar-separator"></li>
                 
-                {/* Agregando el botón de Logout, asumiendo que el usuario está logueado */}
-                {onLogout && ( // Solo muestra el botón si se proporciona la prop onLogout
+                {onLogout && (
                     <li>
-                        {/* El botón de logout no necesita ser un <Link>, sino un <button> */}
                         <button onClick={onLogout} className="sidebar-logout-btn">
                             <FaSignOutAlt />
                             <span>Cerrar Sesión</span>
