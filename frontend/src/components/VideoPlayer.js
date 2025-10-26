@@ -1,3 +1,4 @@
+// frontend/src/components/VideoPlayer.js
 import React from "react";
 import "../styles/VideoPlayer.css";
 
